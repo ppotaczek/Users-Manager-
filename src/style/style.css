@@ -1,0 +1,17 @@
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
+
+body {
+  background-color: #373a3c;
+}
+
+input {
+  width: 100%;
+}
+
+h4 {
+  color: #373a3c;
+}
+
+.empty {
+  height: 10px;
+}

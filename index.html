@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VueApp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    <main id="vueApp">
+      <div class="empty"></div>
+      <aside class="col-md-2">
+        <div class="card">
+          <div class="card-header">
+            <h4>Search</h4>
+          </div>
+          <div class="card-block">
+            <input v-model="search" class="form-control"></input>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h4>New user</h4>
+          </div>
+          <div class="card-block">
+            <label> Name </label>
+            <input v-model="newU.name" class="form-control"></input>
+            <label> Username </label>
+            <input v-model="newU.username" type="email" class="form-control"></input>
+            <label> Email </label>
+            <input v-model="newU.email" class="form-control"></input>
+            <label> City </label>
+            <input v-model="newU.city" class="form-control"></input>
+            <label> Website </label>
+            <input v-model="newU.website" class="form-control"></input>
+            <label> Company </label>
+            <input v-model="newU.company" class="form-control"></input>
+            <label> Phone </label>
+            <input v-model="newU.phone" type="number" class="form-control"></input>
+            <span v-if="!validate">Please fill correctly all fields</span>
+            <br>
+            <input v-on:click="add()" type="button" value="Add" class="btn btn-warning"></input>
+          </div>
+        </div>
+      </aside>
+      <section class="col-md-10">
+        <table class="table table-inverse">
+          <thead>
+            <tr>
+              <th v-for="headline in headlines" v-on:click="sort(headline)">
+                {{ headline }}
+                <span v-if="sorted.by === headline">
+                  <ch-up v-if="!sorted.rev"></ch-up>
+                  <ch-down v-if="sorted.rev"></ch-down>
+                </span>
+              </th>
+              <th>Phone</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in orderedUsers">
+              <td v-for="(prop, index) in user" v-if="typeof prop !== 'boolean'">
+                <span v-if="!user.editing"> {{ prop }} </span>
+                <input v-if="user.editing" v-model="user[index]"></input>
+              </td>
+              <td>
+                <button v-on:click="remove(user)" type="button" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+              </td>
+              <td>
+                <button v-if="!user.editing" type="button" class="btn btn-info" v-on:click="edit(user)">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button v-if="user.editing" type="button" class="btn btn-primary" v-on:click="save(user)">
+                  <span class="glyphicon glyphicon-ok"></span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+    <script type="text/javascript" src="/lib/vue.js"></script>
+    <script type="text/javascript" src="/lib/vue-resource@1.3.js"></script>
+    <script type="text/javascript" src="/lib/lodash.js"></script>
+    <script type="text/javascript" src="/lib/vue-router.js"></script>
+    <script type="text/javascript" src="/app.js"></script>
+  </body>
+</html>
